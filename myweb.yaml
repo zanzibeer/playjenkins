@@ -23,7 +23,7 @@ spec:
         app: myweb
     spec:
       containers:
-      - image: justmeandopensource/myweb:<TAG>
+      - image: zanzibeer/myweb:<TAG>
         imagePullPolicy: Always
         name: myweb
 
@@ -37,10 +37,29 @@ metadata:
   namespace: pipeline-demo
 spec:
   ports:
-  - nodePort: 32223
-    port: 80
+  - port: 80
     protocol: TCP
     targetPort: 80
   selector:
     app: myweb
-  type: NodePort
+  type: ClusterIP
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: myweb
+  namespace: pipeline-demo
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: myweb.test.com
+      http:
+        paths:
+          - pathType: Prefix
+            backend:
+              service:
+                name: myweb
+                port:
+                  number: 80
+            path: /
