@@ -20,7 +20,7 @@ pipeline {
             /kaniko/executor --dockerfile `pwd`/Dockerfile \
                              --context `pwd` \
                              --force \
-                             --destination=docker-hub/myweb:${BUILD_NUMBER} \
+                             --destination=http://nexus.test.com:8082/docker-hub/myweb:${BUILD_NUMBER} \
                              --insecure
             '''
           }
