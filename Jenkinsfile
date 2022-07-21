@@ -20,7 +20,7 @@ pipeline {
             /kaniko/executor --dockerfile `pwd`/Dockerfile \
                              --context `pwd` \
                              --force \
-                             --destination=192.168.10.205/docker-images:${BUILD_NUMBER}
+                             --destination=zanzibeer/myweb:${BUILD_NUMBER}
             '''
           }
         }
